@@ -2,8 +2,31 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Search } from "lucide-react";
 import EventCard from "../components/EventCard";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function Home() {
+  //Declare state variable in React
+  const [events, setEvents] = useState([]);
+
+  //Define a function to fetch event from API
+  const getEvents = () => {
+    axios
+      .get("https://fakestoreapi.com/products")
+      .then((response) => {
+        setEvents(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  //run fetcher based on side-effects
+  useEffect(getEvents, []);
+
+  let amaBaidoo = "banku";
+  amaBaidoo = "waakye";
+
   return (
     <>
       <Navbar />
@@ -17,9 +40,7 @@ export default function Home() {
               Looking for
             </label>
             <select name="type" id="type" className="bg-white p-2 rounded-md">
-              <option selected disabled>
-                Choose event type
-              </option>
+              <option>Choose event type</option>
               <option value="drama">Drama</option>
               <option value="tech">Tech</option>
             </select>
@@ -64,9 +85,11 @@ export default function Home() {
           </h1>
         </div>
         <div className="grid grid-cols-3 gap-5">
-          {[1, 2, 3, 4, 5, 6].map((n) => (
-            <EventCard key={n} />
-          ))}
+          {events.map((item) => {
+           return (
+             <EventCard key={item.id} event={item} />
+           );
+          })}
         </div>
       </section>
       <section className="h-[500px]"></section>
