@@ -2,7 +2,7 @@ import React from "react";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
 const Footer = () => {
   return (
-    <footer className="bg-navy-blue text-white absolute bottom-0 w-full">
+    <footer className="bg-navy-blue text-white">
       <h1>
         <span>Event</span> <span>Hive</span>
       </h1>
